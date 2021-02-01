@@ -34,12 +34,12 @@ public class Account {
         return List.copyOf(history);
     }
 
-    public void deposit(BigDecimal amount) {
+    public synchronized void deposit(BigDecimal amount) {
         addToHistory(amount);
         balance = balance.add(amount);
     }
 
-    public void withdraw(BigDecimal amount) {
+    public synchronized void withdraw(BigDecimal amount) {
         addToHistory(amount.negate());
         balance = balance.subtract(amount);
     }
