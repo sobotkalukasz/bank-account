@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import pl.lsobotka.bank.account.service.exception.NotEnoughFundsException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class AccountTest {
 
@@ -58,6 +60,12 @@ public class AccountTest {
         assertThat(account.getHistory().size()).isEqualTo(operations.size() * 2);
         double actualHistoryBalance = account.getHistory().stream().map(OperationHistoryEntry::value).mapToDouble(BigDecimal::doubleValue).sum();
         assertThat(actualHistoryBalance).isEqualTo(0);
+    }
+
+    @Test
+    void Should_thrownNotEnoughFundsException_When_withdrawNotEnoughFunds() {
+        assertThatExceptionOfType(NotEnoughFundsException.class)
+                .isThrownBy(() -> account.withdraw(BigDecimal.TEN));
     }
 
 }

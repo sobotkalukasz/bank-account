@@ -1,5 +1,7 @@
 package pl.lsobotka.bank.account.model;
 
+import pl.lsobotka.bank.account.service.exception.NotEnoughFundsException;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,12 +42,19 @@ public class Account {
     }
 
     public synchronized void withdraw(BigDecimal amount) {
+        validateIfEnoughFuds(amount);
         addToHistory(amount.negate());
         balance = balance.subtract(amount);
     }
 
     private void addToHistory(BigDecimal amount) {
         history.add(new OperationHistoryEntry(LocalDateTime.now(), amount));
+    }
+
+    private void validateIfEnoughFuds(BigDecimal withdraw) {
+        if (balance.subtract(withdraw).signum() == -1) {
+            throw new NotEnoughFundsException("Operation.noFunds");
+        }
     }
 
     @Override
