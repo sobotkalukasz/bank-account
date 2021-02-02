@@ -1,4 +1,6 @@
 package pl.lsobotka.bank.account.service.dto;
 
-public record AccountIdTO(Long accountId) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record AccountIdTO(@JsonProperty("accountId") Long accountId) {
 }

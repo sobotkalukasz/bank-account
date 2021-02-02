@@ -1,4 +1,8 @@
 package pl.lsobotka.bank.account.service.dto;
 
-public record CreateAccountTO(String firstName, String lastName) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record CreateAccountTO(
+        @JsonProperty("firstName") String firstName,
+        @JsonProperty("lastName") String lastName) {
 }
