@@ -42,7 +42,7 @@ public class Account {
     }
 
     public synchronized void withdraw(BigDecimal amount) {
-        validateIfEnoughFuds(amount);
+        validateIfEnoughFunds(amount);
         addToHistory(amount.negate());
         balance = balance.subtract(amount);
     }
@@ -51,7 +51,7 @@ public class Account {
         history.add(new OperationHistoryEntry(LocalDateTime.now(), amount));
     }
 
-    private void validateIfEnoughFuds(BigDecimal withdraw) {
+    private void validateIfEnoughFunds(BigDecimal withdraw) {
         if (balance.subtract(withdraw).signum() == -1) {
             throw new NotEnoughFundsException("Operation.noFunds");
         }
