@@ -53,19 +53,12 @@ public class AccountServiceImpl implements AccountService {
         validationResult.ifNotValidThrow(() -> new OperationException(validationResult.getFirstError()));
 
         Account account = getAccountById(id);
-        validateIfEnoughFuds(account.getBalance(), operation.amount());
         account.withdraw(operation.amount());
     }
 
     private Account getAccountById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException("Account.notFound"));
-    }
-
-    private void validateIfEnoughFuds(BigDecimal balance, BigDecimal withdraw) {
-        if (balance.subtract(withdraw).signum() == -1) {
-            throw new NotEnoughFundsException("Operation.noFunds");
-        }
     }
 
 }
