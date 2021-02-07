@@ -11,13 +11,10 @@ import pl.lsobotka.bank.account.service.dto.CreateAccountTO;
 import pl.lsobotka.bank.account.service.dto.OperationTO;
 import pl.lsobotka.bank.account.service.exception.AccountCreateException;
 import pl.lsobotka.bank.account.service.exception.AccountNotFoundException;
-import pl.lsobotka.bank.account.service.exception.NotEnoughFundsException;
 import pl.lsobotka.bank.account.service.exception.OperationException;
 import pl.lsobotka.bank.account.service.validator.CreateAccountTOValidator;
 import pl.lsobotka.bank.account.service.validator.OperationTOValidator;
 import pl.lsobotka.bank.account.service.validator.ValidationResult;
-
-import java.math.BigDecimal;
 
 @Service
 public class AccountServiceImpl implements AccountService {
